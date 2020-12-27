@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<head>
+	<title> Laboratorio</title>
+	<meta charset="UTF-8">
+</head>
+<body>
+	<h1>Formulario Información Alta Telefónica</h1>
+	<form action="https://LaURLdeRecogidaDedatos.com">
+		<fieldset>
+			<legend>Datos personales</legend><!--Información personal-->
+			<label for="nombre">Nombre</label>
+			<input type="text" id="id_nombre" name="nombre" maxlength="30" pattern="[A-Za-zªº -]{2,30}" title="Solo letras, guion y espacios" value=""><!--Nombre: letras mayúsculas y minúculas,- ºª y espacio, min 2, max 30 caracteres-->
+			<br/>
+			<label for="apellidos">Apellidos</label>
+			<input type="text" id="id_apellidos" name="apellidos" maxlength="60" pattern="[A-Za-zªº -]{2,30}" title="Solo letras, guion y espacios" value=""><!--Apellidos: letras mayúsculas y minúculas, -ºª y espacio, min 2, max 60 caracteres-->
+			<br/>
+			<label for="direccion">Dirección</label><!--NOTA PARA EL TUTOR:En el ejercicio pone 60 caracteres, entiendo que es máximo-->
+			<input type="text" id="id_direccion" name="direccion" pattern="[A-Za-zªº/0-9. -]{2,30}" value=""><!--Dirección: letras mayúsculas y minúculas,- ºª/ números y espacio, min 2, max 60 caracteres-->
+			<br/>
+			<label for="codigoPostal">Código postal</label><!--Se trata el código postal como texto pero se exige que sean 5 cifras-->
+			<input type="text" id="id_codigoPostal" name="codigoPostal" pattern="[0-9]{5}" value="">
+			<br/>
+			<label for="localidad">Localidad</label><!--Localidad: letras mayúsculas y minúsculas, guion, espacio, max 30 caracteres, min 2-->
+			<input type="text" id="id_localidad" name="localidad"  pattern="[A-Za-z -]{2,30}title="Solo letras, guion y espacios" value=""><!--Localidad: letras mayúsculas y minúculas,ºª- y espacio, min 2, max 60 caracteres-->
+		</fieldset>
+		<fieldset>
+			<legend>Tipo de contratación</legend>
+			<label for="nuevaContratacion">Nueva Contratación</label>
+			<input type="radio" id="id_tipoContratacion" name="tipoContratacion" value="nueva" checked="checked" ><!--Marcada por defecto-->
+			&nbsp &nbsp &nbsp
+			<label for="portabilidad">Portabilidad</label>
+			<input type="radio" id="id_portabilidad" name="tipoContratacion" value="portabilidad" >
+			&nbsp &nbsp &nbsp
+			<label for="cambioContrato">Cambio de contrato</label>
+			<input type="radio" id="id_cambioContrato" name="tipoContratacion" value="cambioContrato">
+			<br/>
+			<br/>
+			<label for="companiaActual">Elija la compañía actual</label>
+			<select id="id_companiaActual" name="companiaActual">			
+				<option selected="selected">Movistar</option>
+				<option>Orange</option>
+				<option>Vodafone</option>
+				<option>Yoigo</option>
+				<option>No Tengo Ninguna Compañía</option>
+			</select> 
+			&nbsp &nbsp &nbsp
+			<label for="nuevaCompania">En caso de portabilidad, elija la nueva compañía</label>
+			<select id="id_nuevaCompania" name="nuevaCompania">
+				<option checked="checked">Movistar</option>
+				<option>Orange</option>
+				<option>Vodafone</option>
+				<option>Yoigo</option>
+			</select>
+		</fieldset>
+		<fieldset>
+			<legend>Datos Bancarios</legend>
+				<label for="pais">País</label>
+				<input type="text" id="id_país" name="país" value="ES" disabled="disabled" placeholder="ES"><!-- No modificable por user-->
+				<br/>
+				<label for="controlIBAN">Control IBAN</label>
+				<input type="text" id="id_controlIBAN" name="controlIBAN" pattern="[0-9]{2}" value=""><!--Dos dígitos-->
+				<br/>
+				<label for="entidad">Entidad</label>
+				<input type="text" id="id_entidad" name="entidad" pattern="[0-9]{4}" value=""><!--Cuatro dígitos-->
+				<br/>
+				<label for="sucursal">Sucursal</label>
+				<input type="text" id="id_sucursal" name="sucursal" pattern="[0-9]{4}" value=""><!--Cuatro dígitos-->
+				<br/>
+				<label for="dc">DC</label>
+				<input type="text" id="id_dc" name="dc" pattern="[0-9]{2}" value=""><!--Dos dígitos-->
+				<br/>
+				<label for="cuenta">Cuenta</label>
+				<input type="text" id="id_cuenta" name="cuenta" pattern="[0-9]{10}" value=""><!--Diez dígitos-->
+		</fieldset>
+		<fieldset>
+			<legend>Datos Estadísticos - ¿Cómo nos conoció?</legend>
+			
+			<input type="checkbox" id="TV" name="TV" value="TV">
+			<label for="TV">A través de la TV</label>
+			<br/>			
+			<input type="checkbox" id="radio" name="radio" value="radio">
+			<label for="radio">A través de la radio</label>
+			<br/>
+			<input type="checkbox" id="internet" name="internet" value="internet">
+			<label for="internet">A través de Internet</label>
+			<br/>
+			<input type="checkbox" id="otros" name="otros" value="otros">
+			<label for="otros">Otros</label>
+			<br/>
+			<br/>			
+			<input type="range" id="valoracion" name="valoracion" value="1" min="1" max="5">
+			<label for="valoracion">Valoración [1-5]</label>
+			<br/>
+			<br/>
+			<label for="fechaEncuesta">Fecha de la encuesta</label>
+			<input type="date" id="fechaEncuesta" name="fechaEncuesta"> 
+			Valoración[1-5] <!--Entiendo que este texto repetido es un error, pero ya que aparece en el resultado que hay que obtener, lo mantengo-->			
+		</fieldset>
+		<button type="submit">Enviar datos</button>
+		<button type="reset">Borrar datos></button>
+	</form>
+</body>
+	
+	
+	
