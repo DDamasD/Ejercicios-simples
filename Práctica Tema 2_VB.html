@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica Tema 2-Versión formulario html</title>
+</head>
+
+ <!--Se propone realizar una página web que calcule la letra del número de DNI introducido por el usuario.
+
+De acuerdo con la web del Ministerio del Interior el algoritmo para calcular el DNI es el siguiente; se divide el número entre 23 y el resto se sustituye por una letra que se determina por inspección mediante la siguiente tabla:
+
+(IMÁGENES)
+
+Por ejemplo, si el número del DNI es 12345678 al dividirlo entre 23 da un resto de 14, luego la letra sería la Z: el resultado sería 12345678Z.
+
+El programa ha de cumplir los siguientes requisitos:
+
+
+
+- Se ha de solicitar un número y una letra de DNI al usuario.
+- Se deben validar las entradas del usuario. En el caso de no sea correcta se deberán indicar los motivos del error. No se debe permitir una entrada vacía ni una entrada no numérica en el caso del número de DNI, ni una entrada numérica y superior a un carácter en el caso de la letra. Se ha de permitir el uso de letras mayúsculas y minúsculas.
+- Los mensajes de validación se mostrarán mediante ventanas emergentes.
+- Si se produce un error se borrará la entrada del usuario para que vuelva a introducir de nuevo los datos.
+- Se usará un array para almacenar las diferentes letras.
+
+
+- Se mostrará en la propia página la letra resultado (utilizando funciones del DOM) usando un tipo de letra grande, mínimo "h1".
+- Si la letra introducida por el usuario no coincide con la calculada se mostrará en la propia página con un formato "h3" en rojo y el mensaje en verde en caso contrario.
+- Para el cálculo de la letra del DNI podrá utilizarse un botón para tal fin o bien pulsar la tecla "Enter" una vez tecleada la entrada del usuario. La pulsación de "Enter" se ha de detectar tanto en el campo de entrada para el número como en el campo de entrada para la letra.-->
+
+<body>
+
+<!--ENTRADA DE DATOS USANDO FORMULARIO HTML-->
+
+<p id="instruccionesIniciales">Por favor, introduzca los datos de su DNI:</p>
+
+<div id="formulario">
+    <form id="id_formDNI">
+        <label for="numeroDNI">Número DNI</label>			
+            <input type="text" id="id_numero" name="numero" pattern="[0-9]{8}" title="Por favor, introduzca ocho cifras, del 0 al 9" value="" required onkeypress="return manejadorTecla(event)"><!--Número del DNI, 8 cifras. La validación la hace el html-->
+			<br/>
+        <label for="letraDNI">Letra DNI</label>			
+            <input type="text" id="id_letra" name="letra" pattern="[A-Za-z]{1}" title="Por favor, introduzca una sola letra" value="" required><!--Letra del DNI, una sola letra mayúscula o minúscula. La validación de esto la hace el html, más adelante se comprueba que cumple el algoritmo del ministerio -->
+			<br/>
+    </form>
+    	<button type="submit" class="accion">Enviar datos</button>
+		<button type="reset"  class="accion">Borrar datos</button>
+
+</div>
+
+
+
+
+    <p id = "textoDNI"> La letra del DNI es: </p>
+    <p id = "letraDNIuser"></p>  
+
+
+<script>
+/*FUNCION DE ENTRADA DE DATOS
+Se ha de solicitar un número y una letra de DNI al usuario.
+- Se usará un array para almacenar las diferentes letras.
+
+
+- solicita un número :  el número del dni son 8 dígitos. Le puedo decir que añada un 0.
+-valido el número --> FUNCIÓN VALIDACIÓN DE NÚMERO
+pido la letra
+valido la letra--> FUNCIÓN VALIDACIÓN DE LETRA
+almaceno en un array [numero, letra, validacion Num, validacion Let]--> lo puedo hacer con PUSH e ir incrementando
+
+
+FUNCIÓN DE VALIDACIÓN DE LAS ENTRADAS
+ Se deben validar las entradas del usuario. En el caso de no sea correcta se deberán indicar los motivos del error. No se debe permitir una entrada vacía ni una entrada no numérica en el caso del número de DNI, ni una entrada numérica y superior a un carácter en el caso de la letra. Se ha de permitir el uso de letras mayúsculas y minúsculas.
+- Los mensajes de validación se mostrarán mediante ventanas emergentes.
+- Si se produce un error se borrará la entrada del usuario para que vuelva a introducir de nuevo los datos.
+¿FUNCIÓN DE MENSAJES DE ERROR Y BORRADO?
+
+FUNCIÓN CALCULO DEL DNI
+Para el cálculo de la letra del DNI podrá utilizarse un botón para tal fin o bien pulsar la tecla "Enter" una vez tecleada la entrada del usuario. La pulsación de "Enter" se ha de detectar tanto en el campo de entrada para el número como en el campo de entrada para la letra.-->
+
+FUNCION MOSTRAR EN EL DOM LOS RESULTADOS
+ Se mostrará en la propia página la letra resultado (utilizando funciones del DOM) usando un tipo de letra grande, mínimo "h1".
+- Si la letra introducida por el usuario no coincide con la calculada se mostrará en la propia página con un formato "h3" en rojo y el mensaje en verde en caso contrario.
+*/
+
+
+
+//ZONA DE DECLARACIÓN DE FUNCIONES y OBJETOS
+
+var userDNI = {       //parece que hay que asignarles siempre un valor inicial a las propiedades
+    numero: null,
+    letra: null,
+    validado: false
+};
+ 
+//userDNI.numero = document.getElementById("id_numero");
+    console.log(userDNI.validado + " " + userDNI.numero); //FLAG
+
+
+      
+
+//FUNCION AVERIGUAR TECLA PULSADA
+
+function manejadorTecla(eventoPulsacion){
+    var evento = eventoPulsacion;
+    var tecla = evento.charCode;
+    if (tecla ==13){
+       userDNI.numero = validarNumero(this);
+    }
+}
+
+//FUNCION PEDIR DATOS
+function validarNumero(numero){     
+
+    //Recoge el número del formulario
+
+    let numeroOk = "";
+
+    console.log(numeroOk);
+
+    //Valida el número (8 cifras, no vacío, no otros caracteres -solo 8 números exactamente)
+
+    while(numeroOk.length!=8 || typeof(parseInt(numeroOk))!="number"){ //parseInt convierte en número un string
+
+        
+        numeroOk = document.getElementById("id_numero").value;
+        console.log(numeroOk);
+
+        console.log(numeroOk.length + typeof(numeroOk)); //FLAG        
+
+        alert("El número no es correcto. Debe tener solo caracteres numéricos y tener 8 cifras. Añade 0 a la izquierda si es necesario.");
+        
+        document.getElementById("id_numero").focus();
+       document.getElementById("id_numero").value="";
+        console.log( document.getElementById("id_numero").value); //FLAG
+       
+
+        
+     }
+     return numeroOk;
+    }
+    
+
+
+
+/*
+
+function pedirLetra(){   
+
+//Pide y valida la letra (que sea un caracter, independientemente de que cumpla el algporitmo del Ministerio o no)
+
+
+    let letraOk = prompt("Por favor, introduce la letra de tu DNI.") 
+    let caracteresAdmitidos=["A","B","C","D","E","F","G","H","I","J","K","L","M","N","Ñ","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","ñ","o","p","q","r","s","t","u","v","w","x","y","z","Á","É","Í","Ó","Ú","á","é","í","ó","ú"];
+    let admitida = false;
+
+    do{         
+
+        for (i=0; i<caracteresAdmitidos.length; i++){
+            admitida = (letraOk == caracteresAdmitidos[i]);
+            if (admitida == true) break;//rompe el bucle del for
+        }   
+        
+        if (admitida == false){
+            letraOk = prompt("El caracter introducido no es correcto. Debe ser una letra.");
+        }
+    }
+    while(admitida==false); 
+return letraOk;
+}
+    
+
+function validacionMinisterio(numero, letra){
+
+    let arrayMinisterio=["T","R","W","A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E","t","r","w","a","g","m","y","f","p","d","x","b","n","j","z","s","q","v","h","l","c","k","e"];
+
+    let posicionArray = (numero%23);
+
+    console.log(posicionArray);
+
+    let correcto=(letra==arrayMinisterio[posicionArray] || letra==arrayMinisterio[posicionArray+23]);//contempla mayúsculas y minúsculas
+
+return correcto;
+}
+
+
+
+
+
+
+
+
+//ZONA DE EJECUCION
+alert("Ahora vamos a pedirte los datos de tu DNI. Pon el de verdad, caray, no el de tu primo como siempre.");
+
+
+userDNI.numero = pedirNumero();
+
+console.log("en el objeto el numero es " + userDNI.numero);
+
+userDNI.letra = pedirLetra(); //hay que meter algo de validado tal vez
+
+console.log("en el objeto la letra es " + userDNI.letra);
+
+userDNI.validado = validacionMinisterio(userDNI.numero, userDNI.letra);
+
+console.log("letra correcta según el Ministerio: " + userDNI.validado)
+
+var elementoHTML=document.getElementById("letraDNIuser");
+console.log(elementoHTML);
+
+
+userDNI.letra = userDNI.letra.toUpperCase(); //por estética, prefiero ponerla en mayúscula
+elementoHTML.innerHTML = userDNI.letra;
+
+if (userDNI.validado == false) elementoHTML.style.color = "red"; 
+else elementoHTML.style.color = "green";
+
+
+
+
+
+
+*/
+
+</script>
+</body>
+</html>
